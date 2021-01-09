@@ -1,0 +1,14 @@
+Steps have taken care to run standalone GUI application
+
+(i) Due to my Personel PC limitations to have installed Anaconda which is having inbuilt  Python (> 3.5) distribution used  
+	https://www.anaconda.com/products/individual
+(ii) Have installed wxpython package through PIP in cmd.
+	pip install wxPython
+	
+(iii) Go to the path where the Assement.py is existed and run
+	
+	Ex:
+	C:\Users\rajasekhar\Downloads\wx\Assementtest python Assessment.py
+	Path is C:\Users\rajasekhar\Downloads\wx\Assementtest
+	FIle name:Assessment.py
+
