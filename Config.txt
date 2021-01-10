@@ -1,14 +1,17 @@
 Steps have taken care to run standalone GUI application
-
+Note : Make sure python is greater than 3.5 version
 (i) Due to my Personel PC limitations to have installed Anaconda which is having inbuilt  Python (> 3.5) distribution used  
 	https://www.anaconda.com/products/individual
-(ii) Have installed wxpython package through PIP in cmd.
+
+(ii)  To support GUI kind of application need to install wx package try the below command in the anaconda prompt  .
 	pip install wxPython
 	
-(iii) Go to the path where the Assement.py is existed and run
+(iii) Have used Command line approach to launch application so go to the path where the Assement.py is existed and run in below manner.
 	
 	Ex:
 	C:\Users\rajasekhar\Downloads\wx\Assementtest python Assessment.py
 	Path is C:\Users\rajasekhar\Downloads\wx\Assementtest
 	FIle name:Assessment.py
+	
+Still if you any queries  regarding  execution  refer to Images directory.
 
