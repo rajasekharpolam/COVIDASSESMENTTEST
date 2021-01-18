@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import wx
 
-Static_list = ["Are you suffering any of the like Diabetes, Hypertension,Lung disease, Heart Disease, Kidney Disorder","Are you experiencing any of the symptoms like cold,fever, difficulty in Breathing, loss of senses of smell and taste","Have you traveled anwhere internationally in the last 30 days","Did you rexecently interacted with person who has tetsed Positive for COVID-19"]
+Static_list = ["Are you suffering with any of  like Diabetes, Hypertension,Heart Disease","Are you experiencing any of the symptoms like cold,fever, difficulty in Breathing, loss of senses of smell and taste","Have you traveled anywhere internationally in the last 30 days","Did you recently interacted with person who has tested Positive for COVID-19","Did you recently visted any COVID containment zones"]
 
 class Button(wx.Frame):
     def __init__(self,parent):
@@ -9,17 +9,7 @@ class Button(wx.Frame):
         wx.Frame.__init__(self,parent,size = (300,200),id = wx.ID_ANY,pos = wx.DefaultPosition,style = wx.MINIMIZE_BOX|wx.RESIZE_BORDER|wx.CAPTION|wx.CLOSE_BOX|wx.SYSTEM_MENU,title="COVID Assesment")
         
         self.count = 0
-        
-        self.InitUI(parent)
         self.check_activated_list = []
-    
-    
-    def InitUI(self,parent):
-        
-        self.Start()
-     
-    def Start(self):
-        pn1 = wx.Panel(self)
         
         self.SetBackgroundColour('white')
         self.Vbox = wx.BoxSizer(wx.VERTICAL)
@@ -30,8 +20,12 @@ class Button(wx.Frame):
         self.Bind(wx.EVT_BUTTON,self.click)
         self.SetSizer(self.Vbox)
         self.Show()
-        self.count+=1
-        self.change_frame_size(300+self.count,200+self.count)
+        self.Hbox = None
+        self.c1 = None
+        self.c2 = None
+        self.modal = None
+        
+        
         
     
     def template_creation(self):
@@ -54,7 +48,9 @@ class Button(wx.Frame):
         
         
         self.Bind(wx.EVT_BUTTON,self.click)
+  
         self.SetSizer(self.Vbox)
+
         self.Show()
         self.count+=1
         self.change_frame_size(300+self.count,200+self.count)
@@ -66,27 +62,35 @@ class Button(wx.Frame):
         if bu.GetLabel() == "Start":
             self.but.Destroy()
             self.Static.Destroy()
-            self.Vbox.Destroy()
-            
+
+            self.but = None
+            self.Static= None
+            self.count = 0
             if self.count < len(Static_list):
                 self.template_creation()
         elif bu.GetLabel() == "Retake Test":
             self.count = 0
             self.but.Destroy()
-            self.vbox.Destroy()
-            self.text.Destroy()
+            self.Static.Destroy()
+
+            self.but = None
+            self.Static = None
             self.template_creation()
         else:
             if (not((self.c1.GetValue()) ^ (self.c2.GetValue()))):
-                modal=wx.MessageDialog(self,message = "Please select only one button",caption = "Informative message")
-                modal.ShowModal()
+                self.modal = wx.MessageDialog(self,message = "Please select only one button",caption = "Informative message")
+                self.modal.ShowModal()
             elif bu.GetLabel() == "Submit":
                 
                 self.c1.Destroy()
                 self.c2.Destroy()
                 self.but.Destroy()
                 self.Static.Destroy()
-                self.Vbox.Destroy()
+
+                self.c1 = None
+                self.c2 = None
+                self.but = None
+                self.Static = None
                 self.result()
             elif ((self.c1.GetValue()) ^ (self.c2.GetValue())):
                 Button_value = self.c1.GetLabel() if self.c1.GetValue() else self.c2.GetLabel()
@@ -96,7 +100,11 @@ class Button(wx.Frame):
                 self.c2.Destroy()
                 self.but.Destroy()
                 self.Static.Destroy()
-                self.Vbox.Destroy()
+
+                self.c1 = None
+                self.c2 = None
+                self.but = None
+                self.Static = None
             
                 if self.count < len(Static_list):
                     self.template_creation()
@@ -106,28 +114,28 @@ class Button(wx.Frame):
         
     def result(self):
         
-        self.vbox = wx.BoxSizer(wx.VERTICAL)
+        self.Vbox = wx.BoxSizer(wx.VERTICAL)
         
-        self.text = wx.StaticText(self,wx.ID_ANY,style = wx.ALIGN_CENTER)
+        self.Static = wx.StaticText(self,wx.ID_ANY,style = wx.ALIGN_CENTER)
         label = "Infection rate is\n"
         self.font = wx.Font(18,wx.FONTFAMILY_DEFAULT,wx.FONTSTYLE_NORMAL,wx.FONTWEIGHT_NORMAL)
         if 'True' in self.check_activated_list[1:]:
             label+=' HIGH'
-            self.text.SetForegroundColour((255,0,0))
+            self.Static.SetForegroundColour((255,0,0))
         else:
             label+=" Low"
-            self.text.SetForegroundColour((0,255,0))
-        self.text.SetLabel(label)
-        self.text.SetFont(self.font)
+            self.Static.SetForegroundColour((0,255,0))
+        self.Static.SetLabel(label)
+        self.Static.SetFont(self.font)
         self.SetBackgroundColour('white')
         
-        self.vbox.Add(self.text,1,wx.ALL,3)
+        self.Vbox.Add(self.Static,1,wx.ALL,3)
         
         self.but = wx.Button(self,wx.ID_ANY,'Retake Test',wx.DefaultPosition,wx.DefaultSize,0)
-        self.vbox.Add(self.but,0,wx.ALIGN_RIGHT,3)      
+        self.Vbox.Add(self.but,0,wx.ALIGN_RIGHT,3)
         
         self.Bind(wx.EVT_BUTTON,self.click)
-        self.SetSizer(self.vbox)
+        self.SetSizer(self.Vbox)
         self.count+=1
         self.change_frame_size(300+self.count,200+self.count)
         
